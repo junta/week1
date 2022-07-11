@@ -109,6 +109,7 @@ describe("Multiplier3 with Groth16", function () {
     const INPUT = {
       a: 4,
       b: 3,
+      c: 5,
     };
 
     const witness = await circuit.calculateWitness(INPUT, true);
@@ -116,19 +117,19 @@ describe("Multiplier3 with Groth16", function () {
     // console.log(witness);
 
     assert(Fr.eq(Fr.e(witness[0]), Fr.e(1)));
-    assert(Fr.eq(Fr.e(witness[1]), Fr.e(72)));
+    assert(Fr.eq(Fr.e(witness[1]), Fr.e(60)));
   });
 
   it("Should return true for correct proof", async function () {
     //[assignment] insert your script here
     const { proof, publicSignals } = await groth16.fullProve(
-      { a: "2", b: "3" },
+      { a: "4", b: "3" },
       "contracts/circuits/Multiplier3/Multiplier3_js/Multiplier3.wasm",
       "contracts/circuits/Multiplier3/circuit_final.zkey"
     );
 
     // show output value in console.
-    console.log("2x3x6=", publicSignals[0]);
+    console.log("4x3=", publicSignals[0]);
     // console.log("proof:", proof);
 
     // get proof publicSignals value from contract call data
